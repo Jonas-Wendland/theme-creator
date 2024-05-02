@@ -6,11 +6,14 @@ import { uid } from "uid";
 import "./App.css";
 
 function App() {
-  const [color, setColor] = useState(initialColors);
+  const [colors, setColors] = useState(initialColors);
 
   function handleSubmit(newColor) {
-    setColor([{ id: uid(), ...newColor }, ...color]);
-    console.log(newColor);
+    setColors([{ id: uid(), ...newColor }, ...colors]);
+  }
+  function handleDeleteColor(id) {
+    console.log(id);
+    setColors(colors.filter((color) => color.id !== id));
   }
 
   return (
@@ -19,9 +22,17 @@ function App() {
       <ColorForm onSubmit={handleSubmit} />
       <br />
 
-      {color.map((color) => {
-        return <Color key={color.id} color={color} />;
+      {colors.map((color) => {
+        return (
+          <Color
+            id={color.id}
+            key={color.id}
+            color={color}
+            onDeleteColor={handleDeleteColor}
+          />
+        );
       })}
+      {colors.length === 0 && <p>No colors.. start by adding one!</p>}
     </>
   );
 }
