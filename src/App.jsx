@@ -8,27 +8,42 @@ import "./App.css";
 function App() {
   const [colors, setColors] = useState(initialColors);
 
-  function handleSubmit(newColor) {
-    setColors([{ id: uid(), ...newColor }, ...colors]);
+  function handleAddColor(newColor) {
+    if (newColor.id === undefined) {
+      setColors([{ id: uid(), ...newColor }, ...colors]);
+    } else {
+      setColors([newColor, ...colors]);
+    }
   }
+
   function handleDeleteColor(id) {
-    console.log(id);
     setColors(colors.filter((color) => color.id !== id));
+  }
+
+  function handleEditColor(colorEdit) {
+    setColors(
+      colors.map((color) => {
+        if (color.id === colorEdit.id) return colorEdit;
+        return color;
+      })
+    );
+    console.log(colorEdit);
   }
 
   return (
     <>
       <h1>Theme Creator</h1>
-      <ColorForm onSubmit={handleSubmit} />
+      <ColorForm onAddColor={handleAddColor} />
       <br />
 
       {colors.map((color) => {
         return (
           <Color
-            id={color.id}
             key={color.id}
             color={color}
+            id={color.id}
             onDeleteColor={handleDeleteColor}
+            onEditColor={handleEditColor}
           />
         );
       })}
