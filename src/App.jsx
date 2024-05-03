@@ -29,7 +29,6 @@ function App() {
         return color;
       })
     );
-    console.log(colorEdit);
   }
 
   return (
