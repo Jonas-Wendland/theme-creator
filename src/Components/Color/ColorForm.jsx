@@ -16,6 +16,7 @@ export default function ColorForm({
       data.id = initialData.id;
     }
     onAddColor(data);
+    console.log(data.hex);
 
     if (showEdit) {
       onExitEdit();
