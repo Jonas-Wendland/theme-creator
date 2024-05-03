@@ -2,6 +2,7 @@ import "./Color.css";
 import { useState } from "react";
 import ColorForm from "./ColorForm";
 import CopyToClipboard from "../CopyToClipboard";
+import ContrastChecker from "../ContrastChecker";
 
 export default function Color({ color, onDeleteColor, onEditColor }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -30,6 +31,8 @@ export default function Color({ color, onDeleteColor, onEditColor }) {
       <CopyToClipboard hexCode={color} />
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
+      <ContrastChecker color={[color.hex, color.contrastText]} />
+      <br />
       {!confirmDelete && !showEdit && (
         <button
           onClick={() => {
