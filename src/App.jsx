@@ -4,11 +4,15 @@ import ColorForm from "./Components/Color/ColorForm.jsx";
 import { uid } from "uid";
 import "./App.css";
 import useLocalStorageState from "use-local-storage-state";
+// import { initialThemes } from "./lib/themes.js";
 
 function App() {
   const [colors, setColors] = useLocalStorageState("colors", {
     defaultValue: initialColors,
   });
+  // const [thems, setThemes] = useLocalStorageState("thems", {
+  //   defaultValue: initialThemes,
+  // });
 
   function handleAddColor(newColor) {
     if (newColor.id === undefined) {

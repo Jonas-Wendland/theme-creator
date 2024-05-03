@@ -18,8 +18,24 @@ export default function ContrastChecker({ color }) {
     }
     postFetch(color);
   });
+  function handleBackgroundColor() {
+    if (contrastScore === "Yup") {
+      return "green";
+    } else if (contrastScore === "Kinda") {
+      return "yellow";
+    } else if (contrastScore === "Nope") {
+      return "red";
+    }
+  }
+
   return (
-    <p className="color-contrast-rating">
+    <p
+      style={{
+        color: "black",
+        backgroundColor: handleBackgroundColor(),
+        display: "inline-flex",
+      }}
+    >
       Overall contrast rating: {contrastScore}
     </p>
   );
