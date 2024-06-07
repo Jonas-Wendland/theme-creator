@@ -1,4 +1,4 @@
-import ColorInput from "./Color/ColorInput";
+import ColorInput from "./ColorInput";
 
 export default function ColorEdit({ onEditColor }) {
   function handleEditColor(event) {

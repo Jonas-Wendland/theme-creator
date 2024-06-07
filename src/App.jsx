@@ -3,16 +3,32 @@ import Color from "./Components/Color/Color";
 import ColorForm from "./Components/Color/ColorForm.jsx";
 import { uid } from "uid";
 import "./App.css";
-import useLocalStorageState from "use-local-storage-state";
-// import { initialThemes } from "./lib/themes.js";
+// import useLocalStorageState from "use-local-storage-state";
+import { initialThemes } from "./lib/themes.js";
+import ThemesForm from "./Components/Themes/ThemesForm.jsx";
+import { useState } from "react";
 
 function App() {
-  const [colors, setColors] = useLocalStorageState("colors", {
-    defaultValue: initialColors,
-  });
-  // const [thems, setThemes] = useLocalStorageState("thems", {
-  //   defaultValue: initialThemes,
-  // });
+  const [colors, setColors] = useState(initialColors);
+  const [themes, setThemes] = useState(initialThemes);
+  const [currentThemeId, setCurrentThemeId] = useState("t1");
+
+  const currentTheme = themes.find((theme) => theme.id === currentThemeId);
+  const currentColors = currentTheme.colors.map((colorId) =>
+    colors.find((color) => color.id === colorId)
+  );
+
+  function handleThemeChange(event) {
+    setCurrentThemeId(event.target.value);
+  }
+
+  function handleAddThemes(newTheme) {
+    if (newTheme.id === undefined) {
+      setThemes([...themes, { id: uid(), ...newTheme }]);
+    } else {
+      setThemes([newTheme, ...themes]);
+    }
+  }
 
   function handleAddColor(newColor) {
     if (newColor.id === undefined) {
@@ -24,6 +40,10 @@ function App() {
 
   function handleDeleteColor(id) {
     setColors(colors.filter((color) => color.id !== id));
+  }
+
+  function handleDeleteTheme(id) {
+    setColors(themes.filter((theme) => theme.id !== id));
   }
 
   function handleEditColor(colorEdit) {
@@ -38,6 +58,15 @@ function App() {
   return (
     <>
       <h1>Theme Creator</h1>
+
+      <ThemesForm
+        currrentThemeId={currentThemeId}
+        onAddTheme={handleAddThemes}
+        currentTheme={currentTheme}
+        onThemeChange={handleThemeChange}
+        themes={themes}
+        onDeleteTheme={handleDeleteTheme}
+      />
       <ColorForm onAddColor={handleAddColor} />
       <br />
 

@@ -1,8 +1,8 @@
 import "./Color.css";
 import { useState } from "react";
 import ColorForm from "./ColorForm";
-import CopyToClipboard from "../CopyToClipboard";
-import ContrastChecker from "../ContrastChecker";
+import CopyToClipboard from "./CopyToClipboard";
+import ContrastChecker from "./ContrastChecker";
 
 export default function Color({ color, onDeleteColor, onEditColor }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
